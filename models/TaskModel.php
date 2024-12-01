@@ -19,8 +19,9 @@
 
         public function createTask($sDescription){
             $sCommand = "INSERT INTO TASKS
-	                           (DESCRIPTION)
-                        VALUES ($sDescription)";
+                                (DESCRIPTION, IS_COMPLETED)
+                         VALUES ('$sDescription', 'FALSE')";
+
             
             return $this->oDataBase->runCommand($sCommand);
             
@@ -31,13 +32,13 @@
                             SET IS_COMPLETED = " . ($sIsCompleted ? "true":"false") .
                         " WHERE ID = $iID";
 
-            return $this->oDatabase->runCommand($sCommand);
+            return $this->oDataBase->runCommand($sCommand);
         }
 
         public function deleteTask($iID){
             $sCommand = "DELETE FROM TASKS
                           WHERE ID = $iID";
 
-            return $this->oDatabase->runCommand($sCommand);
+            return $this->oDataBase->runCommand($sCommand);
         }
     }

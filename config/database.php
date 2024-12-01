@@ -10,8 +10,13 @@
 
         public function connect(){
 
-            $sDsn = "host=$this->sHost;port=$this->port;dbname=$this->sDatabase;user=$this->user;password=$this->sPassword";
-            $this->connection = pg_connect($sDsn);
+            $sConexao = "host = $this->sHost
+                         port = $this->sPort
+                         dbname = $this->sDatabase
+                         user = $this->sUser
+                         password = $this->sPassword";
+
+            $this->connection = pg_connect($sConexao);
 
             return $this->connection;
         }
@@ -25,7 +30,7 @@
 
 
         public function runQuery($sQuery){
-            $oResultad = pg_query(getConnection(), $this->sQuery);
+            $oResultad = pg_query($this->getConnection(), $sQuery);
             $aData = [];
             
             while ($aResult = pg_fetch_assoc($oResultad)) {
